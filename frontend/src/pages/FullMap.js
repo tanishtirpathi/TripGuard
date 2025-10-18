@@ -36,7 +36,7 @@ const FullMap = () => {
 
               // ✅ 1. Fetch nearby incidents count (for zone)
               const zoneRes = await fetch(
-                `https://safion-app.onrender.com/api/incidents/nearby?lat=${latitude}&lng=${longitude}`
+                `https://tripguard.onrender.com/api/incidents/nearby?lat=${latitude}&lng=${longitude}`
               );
               const zoneData = await zoneRes.json();
               const count = zoneData.count || 0;
@@ -59,7 +59,7 @@ const FullMap = () => {
                 );
 
               // ✅ 2. Fetch all incidents (for markers)
-              const allRes = await fetch("https://safion-app.onrender.com/api/incidents", {
+              const allRes = await fetch("https://tripguard.onrender.com/api/incidents", {
                 headers: {
                   Authorization: `Bearer ${localStorage.getItem("token")}`, // auth header
                 },

@@ -25,7 +25,7 @@ function ChatbotWithSidebar({ t }) {
     setInput(""); // clear input
 
     try {
-      const res = await axios.post("https://safion-app.onrender.com/api/chatbot", { message: input });
+      const res = await axios.post("https://tripguard.onrender.com/api/chatbot", { message: input });
       const replyText = res.data.reply?.replace(/\n/g, "<br/>") || "⚠️ No reply";
       const botMessage = { sender: "bot", text: replyText };
       setMessages((prev) => [...prev, botMessage]);

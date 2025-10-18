@@ -21,7 +21,7 @@ const News = () => {
       try {
         setLoading(true);
         const res = await fetch(
-          `https://safion-app.onrender.com/api/news?lat=${lat}&lon=${lon}`
+          `https://tripguard.onrender.com/api/news?lat=${lat}&lon=${lon}`
         );
         if (!res.ok) throw new Error("Failed to fetch news");
 

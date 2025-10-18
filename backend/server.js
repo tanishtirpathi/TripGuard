@@ -9,7 +9,7 @@ import newsRoutes from "./routes/news.routes.js";
 import chatbotRoute from "./routes/chatbot.router.js";
 
 const app = express();
-const allowed = ["http://localhost:3000", "https://safion-ten.vercel.app"];
+const allowed = ["http://localhost:3000", "https://tripguard.vercel.app"];
 app.use(
   cors({
     origin: function (origin, callback) {
