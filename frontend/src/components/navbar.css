@@ -1,0 +1,109 @@
+/* Navbar container */
+body, html {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.navbar {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+  padding: 12px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "Segoe UI", sans-serif;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  z-index: 1000;
+}
+
+/* Logo */
+.logo {
+  font-size: 20px;
+  font-weight: bold;
+  color: #2563eb;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.logo:hover {
+  color: #1e40af;
+}
+
+/* Nav links */
+.nav-links {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover {
+  color: #2563eb;
+}
+
+/* Signup button */
+.signup-btn {
+  background: #2563eb;
+  color: #fff !important;
+  padding: 6px 14px;
+  margin-right: 50px;
+  border-radius: 6px;
+  transition: background 0.3s;
+}
+
+.signup-btn:hover {
+  background: #1e40af;
+}
+
+/* Language dropdown */
+.lang-dropdown {
+  position: relative;
+  display: inline-block;
+  margin-right: 40px;
+}
+
+.dropdown-btn {
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.dropdown-list {
+  list-style: none; /* ✅ removes the default dots */
+  padding: 0;       /* remove default padding */
+  margin: 0; /* remove default margin */  
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100px;
+  max-height: 150px; /* scrollable height */
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  margin-top: 5px;
+  z-index: 100;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.dropdown-list li {
+  padding: 8px 10px;
+  cursor: pointer;
+   text-decoration: none;
+}
+
+.dropdown-list li:hover {
+  background-color: #f0f0f0;
+}

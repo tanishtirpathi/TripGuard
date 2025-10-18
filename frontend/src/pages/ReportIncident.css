@@ -1,0 +1,108 @@
+/* Layout fix for sidebar + content */
+body {
+  font-family: Arial, sans-serif;
+}
+
+.report-layout {
+  display: flex;
+  min-height: 100vh;
+  overflow-x: hidden; /* removes bottom scrollbar */
+}
+
+/* Sidebar stays fixed width */
+.sidebar {
+  width: 240px;
+  flex-shrink: 0;
+  background: #fff;
+  border-right: 1px solid #eee;
+}
+
+/* Report content adjusts to remaining width */
+.admin-content {
+  flex: 1;
+  max-width: 980px;
+  margin: 20px;
+  padding: 25px;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  font-family: Arial, sans-serif;
+  overflow-x: hidden; /* extra safety */
+}
+
+.report-title {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 26px;
+  font-weight: bold;
+  color: #222;
+}
+
+.report-form .form-group {
+  margin: 18px;
+}
+
+.report-form label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+  color: #444;
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+textarea.form-input {
+  resize: vertical;
+}
+
+.form-row {
+  display: flex;
+  gap: 30px;
+}
+
+.form-row .half {
+  flex: 1;
+  margin: 20px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.btn-primary {
+  background: #e53935;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.btn-primary:hover {
+  background: #d32f2f;
+}
+
+.btn-secondary {
+  background: #f5f5f5;
+  border: 1px solid #ccc;
+  padding: 10px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.btn-secondary:hover {
+  background: #e0e0e0;
+}

@@ -1,0 +1,99 @@
+/* Container */
+.sos-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Heading */
+.sos-container h1 {
+  text-align: center;
+  color: #d32f2f;
+  margin-bottom: 10px;
+}
+
+/* Description text */
+.sos-container p.description {
+  text-align: center;
+  color: #555;
+  margin-bottom: 25px;
+}
+
+/* SOS Button */
+.sos-button-container {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.sos-button {
+  padding: 16px 36px;
+  font-size: 18px;
+  background-color: #d32f2f;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.sos-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.sos-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+}
+
+/* Helpline section */
+.helpline-section h2 {
+  margin-bottom: 20px;
+  color: #1976d2;
+}
+
+.helpline-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.helpline-card {
+  flex: 1 1 200px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 16px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.helpline-card h3 {
+  margin: 0 0 8px 0;
+  color: #333;
+}
+
+.helpline-card p {
+  margin: 4px 0;
+  color: #555;
+}
+
+.copy-button {
+  margin-left: 10px;
+  padding: 4px 8px;
+  font-size: 12px;
+  border-radius: 5px;
+  border: none;
+  background-color: #1976d2;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.copy-button:hover {
+  background-color: #0d47a1;
+}
