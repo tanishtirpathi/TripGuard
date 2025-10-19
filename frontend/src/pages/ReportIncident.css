@@ -8,6 +8,29 @@ body {
   min-height: 100vh;
   overflow-x: hidden; /* removes bottom scrollbar */
 }
+.btn-location {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 25px;
+  height: fit-content;
+  transition: 0.3s;
+}
+
+.btn-location:hover {
+  background-color: #0056b3;
+}
+
+.location-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+}
 
 /* Sidebar stays fixed width */
 .sidebar {

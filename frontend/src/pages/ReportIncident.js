@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../utils/api";
 import "./ReportIncident.css";
-import { useTranslation } from "react-i18next";  // ✅ Translation
+import { useTranslation } from "react-i18next"; // ✅ Translation
 
 const ReportIncident = () => {
-  const { t } = useTranslation(); // ✅ Hook
+  const { t } = useTranslation();
   const [form, setForm] = useState({
     title: "",
     type: "theft",
@@ -15,8 +15,10 @@ const ReportIncident = () => {
     dateTime: "",
     evidence: null,
   });
+  const [locating, setLocating] = useState(false);
   const navigate = useNavigate();
 
+  // ✅ Handle input change
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     if (files) {
@@ -26,6 +28,34 @@ const ReportIncident = () => {
     }
   };
 
+  // ✅ Handle geolocation
+  const handleGetLocation = () => {
+    if (!navigator.geolocation) {
+      alert(t("Geolocation is not supported by your browser"));
+      return;
+    }
+
+    setLocating(true);
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const { latitude, longitude } = pos.coords;
+        setForm((prev) => ({
+          ...prev,
+          lat: latitude.toFixed(6),
+          lng: longitude.toFixed(6),
+        }));
+        setLocating(false);
+        alert(t("Location fetched successfully!"));
+      },
+      (err) => {
+        console.error("❌ Geolocation error:", err);
+        setLocating(false);
+        alert(t("Failed to fetch location. Please allow location access."));
+      }
+    );
+  };
+
+  // ✅ Handle form submit
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -55,16 +85,18 @@ const ReportIncident = () => {
       <aside className="sidebar">
         <h2 className="logo">{t("SafetyApp")}</h2>
         <ul className="menu">
-            <li onClick={() => navigate("/dashboard")}>{t("dashboard")}</li>
-            <li className="active" onClick={() => navigate("/report")}>{t("Report Incident")}</li>
-            <li onClick={() => navigate("/news")}>{t("Live News")}</li>
-            <li onClick={() => navigate("/full-map")}>{t("Map")}</li>
-            <li onClick={() => navigate("/sos")}>{t("Emergency Contacts")}</li>
-            <li onClick={() => navigate("/chatbot")}>{t("AI Assistant")}</li>
-            <li onClick={() => navigate("/instructions")}>{t("Instructions")}</li>
-            <li onClick={() => navigate("/settings")}>{t("Settings")}</li>
-            <li onClick={() => navigate("/logout")}>{t("Logout")}</li>
-          </ul>
+          <li onClick={() => navigate("/dashboard")}>{t("dashboard")}</li>
+          <li className="active" onClick={() => navigate("/report")}>
+            {t("Report Incident")}
+          </li>
+          <li onClick={() => navigate("/news")}>{t("Live News")}</li>
+          <li onClick={() => navigate("/full-map")}>{t("Map")}</li>
+          <li onClick={() => navigate("/sos")}>{t("Emergency Contacts")}</li>
+          <li onClick={() => navigate("/chatbot")}>{t("AI Assistant")}</li>
+          <li onClick={() => navigate("/instructions")}>{t("Instructions")}</li>
+          <li onClick={() => navigate("/settings")}>{t("Settings")}</li>
+          <li onClick={() => navigate("/logout")}>{t("Logout")}</li>
+        </ul>
       </aside>
 
       {/* Main Content */}
@@ -84,7 +116,7 @@ const ReportIncident = () => {
             />
           </div>
 
-          <div className="form-row">
+          <div className="form-row location-row">
             <div className="form-group half">
               <label>{t("Location (Latitude)")}</label>
               <input
@@ -107,6 +139,16 @@ const ReportIncident = () => {
                 required
               />
             </div>
+
+            {/* 📍 Get Location Button */}
+            <button
+              type="button"
+              className="btn-location"
+              onClick={handleGetLocation}
+              disabled={locating}
+            >
+              {locating ? "Getting..." : "📍 Use My Location"}
+            </button>
           </div>
 
           <div className="form-row">
