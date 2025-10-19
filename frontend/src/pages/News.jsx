@@ -20,33 +20,46 @@ const News = () => {
     const fetchNews = async (lat, lon) => {
       try {
         setLoading(true);
+        console.log("🌍 Fetching news for coordinates:", lat, lon);
+
         const res = await fetch(
           `https://tripguard.onrender.com/api/news?lat=${lat}&lon=${lon}`
         );
         if (!res.ok) throw new Error("Failed to fetch news");
 
         const data = await res.json();
+        console.log("✅ News API Response:", data);
+
         setCity(data.data.city);
         setNews(data.data.news);
         localStorage.setItem("newsData", JSON.stringify(data.data.news));
       } catch (err) {
-        setError(err.message);
+        console.error("❌ Fetch news error:", err);
+        setError("Failed to fetch news. Please try again later.");
       } finally {
         setLoading(false);
       }
     };
 
+    // ✅ Geolocation logic with fallback (Delhi)
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
-        (pos) => fetchNews(pos.coords.latitude, pos.coords.longitude),
-        () => {
-          setError("❌ Location access denied.");
-          setLoading(false);
+        (pos) => {
+          console.log("✅ Location:", pos.coords);
+          fetchNews(pos.coords.latitude, pos.coords.longitude);
+        },
+        (err) => {
+          console.error("❌ Geolocation error:", err);
+          setError("");
+          // Fallback: Delhi coordinates (28.6139° N, 77.2090° E)
+          fetchNews(28.6139, 77.2090);
         }
       );
     } else {
-      setError("❌ Geolocation not supported.");
-      setLoading(false);
+      console.warn("⚠️ Geolocation not supported by this browser.");
+      setError("");
+      // Default to Delhi news
+      fetchNews(28.6139, 77.2090);
     }
   }, []);
 
@@ -56,16 +69,16 @@ const News = () => {
       <aside className="sidebar">
         <h2 className="logo">SafetyApp</h2>
         <ul className="menu">
-            <li onClick={() => navigate("/dashboard")}>{("dashboard")}</li>
-            <li onClick={() => navigate("/report")}>{("Report Incident")}</li>
-            <li className="active" onClick={() => navigate("/news")}>{("Live News")}</li>
-            <li onClick={() => navigate("/full-map")}>{("Map")}</li>
-            <li onClick={() => navigate("/sos")}>{("Emergency Contacts")}</li>
-            <li onClick={() => navigate("/chatbot")}>{("AI Assistant")}</li>
-            <li onClick={() => navigate("/instructions")}>{("Instructions")}</li>
-            <li onClick={() => navigate("/settings")}>{("Settings")}</li>
-            <li onClick={() => navigate("/logout")}>{("Logout")}</li>
-          </ul>
+          <li onClick={() => navigate("/dashboard")}>Dashboard</li>
+          <li onClick={() => navigate("/report")}>Report Incident</li>
+          <li className="active" onClick={() => navigate("/news")}>Live News</li>
+          <li onClick={() => navigate("/full-map")}>Map</li>
+          <li onClick={() => navigate("/sos")}>Emergency Contacts</li>
+          <li onClick={() => navigate("/chatbot")}>AI Assistant</li>
+          <li onClick={() => navigate("/instructions")}>Instructions</li>
+          <li onClick={() => navigate("/settings")}>Settings</li>
+          <li onClick={() => navigate("/logout")}>Logout</li>
+        </ul>
       </aside>
 
       {/* Main Content */}
