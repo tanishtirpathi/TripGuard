@@ -1,4 +1,3 @@
-// routes/chat.js
 import express from "express";
 import { handleChat } from "../controllers/chatbot.controller.js";
 

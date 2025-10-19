@@ -34,7 +34,7 @@ function ChatbotWithSidebar({ t }) {
       setMessages((prev) => [
         ...prev,
         { sender: "bot", text: "⚠️ Error: Could not get response." },
-      ]);
+      ]); 
     }
   };
 
