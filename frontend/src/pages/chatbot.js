@@ -51,7 +51,6 @@ function ChatbotWithSidebar({ t }) {
             <li onClick={() => navigate("/sos")}>{("Emergency Contacts")}</li>
             <li className="active" onClick={() => navigate("/chatbot")}>{("AI Assistant")}</li>
             <li onClick={() => navigate("/instructions")}>{("Instructions")}</li>
-            <li onClick={() => navigate("/settings")}>{("Settings")}</li>
             <li onClick={() => navigate("/login")}>{("Logout")}</li>
           </ul>
 </aside>

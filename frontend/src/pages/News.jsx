@@ -76,7 +76,6 @@ const News = () => {
           <li onClick={() => navigate("/sos")}>Emergency Contacts</li>
           <li onClick={() => navigate("/chatbot")}>AI Assistant</li>
           <li onClick={() => navigate("/instructions")}>Instructions</li>
-          <li onClick={() => navigate("/settings")}>Settings</li>
           <li onClick={() => navigate("/logout")}>Logout</li>
         </ul>
       </aside>
@@ -114,7 +113,6 @@ const News = () => {
                       ? n.description.split(" ").slice(0, 30).join(" ") + "..."
                       : "No description available."}
                   </p>
-                  <Link to={`/news/${i}`}>Read more →</Link>
                 </div>
               </div>
             ))}

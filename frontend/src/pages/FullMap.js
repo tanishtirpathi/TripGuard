@@ -22,7 +22,9 @@ const FullMap = () => {
             const { latitude, longitude } = pos.coords;
 
             // ✅ User marker
-            const userMarker = L.marker([latitude, longitude]).addTo(mapRef.current);
+            const userMarker = L.marker([latitude, longitude]).addTo(
+              mapRef.current
+            );
             userMarker.bindPopup("📍 You are here").openPopup();
             mapRef.current.setView([latitude, longitude], 13);
 
@@ -59,18 +61,26 @@ const FullMap = () => {
                 );
 
               // ✅ 2. Fetch all incidents (for markers)
-              const allRes = await fetch("https://tripguard.onrender.com/api/incidents", {
-                headers: {
-                  Authorization: `Bearer ${localStorage.getItem("token")}`, // auth header
-                },
-              });
+              const allRes = await fetch(
+                "https://tripguard.onrender.com/api/incidents",
+                {
+                  headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`, // auth header
+                  },
+                }
+              );
               const incidents = await allRes.json();
 
               incidents.forEach((inc) => {
                 if (inc.location?.lat && inc.location?.lng) {
-                  const marker = L.marker([inc.location.lat, inc.location.lng]).addTo(mapRef.current);
+                  const marker = L.marker([
+                    inc.location.lat,
+                    inc.location.lng,
+                  ]).addTo(mapRef.current);
                   marker.bindPopup(
-                    `<b>${inc.type}</b><br/>${inc.description || "No description"}<br/><i>Status: ${inc.status}</i>`
+                    `<b>${inc.type}</b><br/>${
+                      inc.description || "No description"
+                    }<br/><i>Status: ${inc.status}</i>`
                   );
                 }
               });
@@ -99,7 +109,7 @@ const FullMap = () => {
           padding: "10px 15px",
           borderRadius: "6px",
           border: "none",
-          background: "#0043ce",
+          background: "#ce0000ff",
           color: "#fff",
           cursor: "pointer",
         }}
@@ -128,7 +138,10 @@ const FullMap = () => {
           <p style={{ margin: "2px 0" }}>
             {weather.current.temp_c}°C – {weather.current.condition.text}
           </p>
-          <img src={weather.current.condition.icon} alt="weather" />
+          <img
+            src={weather.current.condition.icon}
+            alt="weather"
+          />
         </div>
       )}
 

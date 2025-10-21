@@ -9,7 +9,7 @@ body {
   overflow-x: hidden; /* removes bottom scrollbar */
 }
 .btn-location {
-  background-color: #007bff;
+  background-color: #ff0000;
   color: white;
   border: none;
   border-radius: 8px;
@@ -23,7 +23,7 @@ body {
 }
 
 .btn-location:hover {
-  background-color: #0056b3;
+  background-color: #b30000;
 }
 
 .location-row {

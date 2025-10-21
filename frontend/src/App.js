@@ -11,7 +11,6 @@ import SOS from "./pages/SOS";
 import AdminPanel from "./pages/AdminPanel";
 import FullMap from "./pages/FullMap"; // <- import the new full map page
 import ProtectedRoute from "./components/ProtectedRoute";
-import Settings from "./pages/Settings";   // ✅ added
 import News from "./pages/News";
 import Instructions from "./pages/instructions";
 import Chatbot from "./pages/chatbot";  // ✅ yaha sahi import
@@ -86,15 +85,6 @@ function App() {
           }
         />
 
-         {/* ✅ Settings Route */}
-        <Route
-          path="/settings"
-          element={
-            <ProtectedRoute>
-              <Settings />
-            </ProtectedRoute>
-          }
-        />
 
         <Route
           path="/admin"

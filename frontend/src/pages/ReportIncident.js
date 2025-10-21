@@ -94,7 +94,6 @@ const ReportIncident = () => {
           <li onClick={() => navigate("/sos")}>{t("Emergency Contacts")}</li>
           <li onClick={() => navigate("/chatbot")}>{t("AI Assistant")}</li>
           <li onClick={() => navigate("/instructions")}>{t("Instructions")}</li>
-          <li onClick={() => navigate("/settings")}>{t("Settings")}</li>
           <li onClick={() => navigate("/logout")}>{t("Logout")}</li>
         </ul>
       </aside>

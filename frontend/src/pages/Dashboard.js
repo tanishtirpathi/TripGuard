@@ -4,14 +4,14 @@ import api from "../utils/api";
 import MapComponent from "../components/MapComponent";
 import "./dashboard.css";
 import { useAuth } from "../context/AuthContext";
-import { useTranslation } from "react-i18next";   // ✅ Translation import
+import { useTranslation } from "react-i18next"; // ✅ Translation import
 
 const Dashboard = () => {
   const [incidents, setIncidents] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const { user } = useAuth();
-  const { t } = useTranslation();  
+  const { t } = useTranslation();
 
   // Fetch incidents from backend
   useEffect(() => {
@@ -41,8 +41,9 @@ const Dashboard = () => {
             <li onClick={() => navigate("/full-map")}>{t("Map")}</li>
             <li onClick={() => navigate("/sos")}>{t("Emergency Contacts")}</li>
             <li onClick={() => navigate("/chatbot")}>{t("AI Assistant")}</li>
-            <li onClick={() => navigate("/instructions")}>{t("Instructions")}</li>
-            <li onClick={() => navigate("/settings")}>{t("Settings")}</li>
+            <li onClick={() => navigate("/instructions")}>
+              {t("Instructions")}
+            </li>
             <li onClick={() => navigate("/logout")}>{t("Logout")}</li>
           </ul>
         </aside>
@@ -54,23 +55,6 @@ const Dashboard = () => {
             <span className="app-title">
               {t("Hey")}, {user?.name ?? t("Guest")}
             </span>
-            <div className="dashboard-search">
-              <input
-                type="text"
-                placeholder={t("Search incidents, alerts, or safe routes...")}
-                className="search-input"
-              />
-              <button className="search-btn">{t("Search")}</button>
-            </div>
-
-            <div className="profile">
-              <span className="bell">🔔</span>
-              <img
-                src="https://media.licdn.com/dms/image/v2/D4E03AQFLncf9MjIMcg/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1723647237095?e=1760572800&v=beta&t=e_f0m5uL9aZn9Vo6Fh3HPm-Ds50PAO14GdvEBi3RV_A"
-                alt="profile"
-                className="profile-pic"
-              />
-            </div>
           </header>
 
           {/* Hero Section */}
@@ -87,9 +71,14 @@ const Dashboard = () => {
                   className="btn-primary"
                   onClick={() => navigate("/report")}
                 >
-                  {t("Get Started")}
+                  {t("Report a complaint ")}
                 </button>
-                <button className="btn-secondary">{t("Learn More")}</button>
+                <button
+                  className="btn-secondary"
+                  onClick={() => navigate("/sos")}
+                >
+                  {t("sos")}
+                </button>
               </div>
             </div>
             <div className="hero-image">
@@ -161,9 +150,13 @@ const Dashboard = () => {
               <p>{t("Stay updated with real-time incident reports")}</p>
             </div>
             <div className="alerts-list">
-              {loading && <div className="loading">{t("Loading alerts...")}</div>}
+              {loading && (
+                <div className="loading">{t("Loading alerts...")}</div>
+              )}
               {!loading && incidents.length === 0 && (
-                <div className="no-alerts">{t("No incidents reported yet")}</div>
+                <div className="no-alerts">
+                  {t("No incidents reported yet")}
+                </div>
               )}
               {!loading &&
                 incidents.slice(0, 3).map((inc) => (
@@ -301,7 +294,9 @@ const Dashboard = () => {
           </div>
         </div>
         <div className="footer-bottom">
-          <p>© 2025 {t("SafeGuard")}. {t("All Rights Reserved.")}</p>
+          <p>
+            © 2025 {t("SafeGuard")}. {t("All Rights Reserved.")}
+          </p>
         </div>
       </footer>
     </div>
