@@ -2,20 +2,28 @@ import jwt from "jsonwebtoken";
 
 const authMiddleware = (req, res, next) => {
   try {
-    let token = req.header("Authorization");
-    if (!token) return res.status(401).json({ message: "No token, authorization denied" });
-    
-    // Remove 'Bearer ' prefix
-    if (token.startsWith("Bearer ")) {
-        token = token.slice(7).trim();
+    // ✅ Debug: check cookies
+    console.log("Cookies received:", req.cookies);
+
+    // 🔹 Access token only from cookies
+    const token = req.cookies?.accessToken;
+
+    if (!token) {
+      return res
+        .status(401)
+        .json({ message: "No token found in cookies, authorization denied" });
     }
-    
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded; 
-    return next();
+
+    // 🔹 Verify token
+    const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+
+    // 🔹 Attach user info to req
+    req.user = decoded;
+
+    next(); // ✅ Continue to next middleware/controller
   } catch (err) {
     console.error("Auth middleware error:", err.message);
-    return res.status(401).json({ message: "Token is not valid" });
+    return res.status(401).json({ message: "Invalid or expired token" });
   }
 };
 
