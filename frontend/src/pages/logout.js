@@ -1,31 +1,35 @@
-const React = require("react");
-const { useEffect } = React;
-const { useNavigate } = require("react-router-dom");
+import  { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import api from "../utils/api";
+import { useAuth } from "../context/AuthContext";
 
 function Logout() {
   const navigate = useNavigate();
+  const { setUser } = useAuth();
 
   useEffect(() => {
-    // Sab jagah se clear karo
-    localStorage.removeItem("token");
-    sessionStorage.removeItem("token");
-    localStorage.clear();
-    sessionStorage.clear();
+    const logoutUser = async () => {
+      try {
+        // ✅ Tell backend to clear HttpOnly cookies
+        await api.get("/api/auth/logout", { withCredentials: true });
 
-    // Agar cookie based token use kar rahe ho toh
-    document.cookie.split(";").forEach((c) => {
-      document.cookie = c
-        .replace(/^ +/, "")
-        .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
-    });
+        // ✅ Reset local state
+        setUser(null);
 
-    // Thoda delay dekar navigate
-    setTimeout(() => {
-      navigate("/login");
-    }, 100);
-  }, [navigate]);
+        // ✅ Redirect after short delay
+        setTimeout(() => {
+          navigate("/login");
+        }, 500);
+      } catch (err) {
+        console.error("Logout failed:", err.message);
+        navigate("/login");
+      }
+    };
+
+    logoutUser();
+  }, [navigate, setUser]);
 
   return null;
 }
 
-module.exports = Logout;
+export default Logout;

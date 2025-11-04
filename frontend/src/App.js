@@ -3,8 +3,10 @@ import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./components/navbar";
 import Login from "./pages/Login";
-import Logout from "./pages/logout"
+import Logout from "./pages/logout";
 import Signup from "./pages/Signup";
+import VerifySuccess from "./pages/VerifySuccess";
+import VerifyInfo from "./pages/VerifyInfo";
 import Dashboard from "./pages/Dashboard";
 import ReportIncident from "./pages/ReportIncident";
 import SOS from "./pages/SOS";
@@ -13,7 +15,8 @@ import FullMap from "./pages/FullMap"; // <- import the new full map page
 import ProtectedRoute from "./components/ProtectedRoute";
 import News from "./pages/News";
 import Instructions from "./pages/instructions";
-import Chatbot from "./pages/chatbot";  // ✅ yaha sahi import
+import Chatbot from "./pages/chatbot"; // ✅ yaha sahi import
+import Verify from "./pages/Verify";
 function App() {
   return (
     <>
@@ -21,9 +24,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
         <Route path="/login" element={<Login />} />
-        
+
         <Route path="/signup" element={<Signup />} />
-        
 
         <Route
           path="/dashboard"
@@ -33,7 +35,11 @@ function App() {
             </ProtectedRoute>
           }
         />
-        
+        <Route path="/verify-success" element={<VerifySuccess />} />
+        <Route path="/verify/:token" element={<Verify />} />
+
+        <Route path="/verify-info" element={<VerifyInfo />} />
+
         <Route
           path="/logout"
           element={
@@ -42,7 +48,7 @@ function App() {
             </ProtectedRoute>
           }
         />
-         <Route
+        <Route
           path="/news"
           element={
             <ProtectedRoute>
@@ -58,7 +64,7 @@ function App() {
               <ReportIncident />
             </ProtectedRoute>
           }
-        /> 
+        />
         <Route
           path="/instructions"
           element={
@@ -66,14 +72,14 @@ function App() {
               <Instructions />
             </ProtectedRoute>
           }
-        /> 
-        <Route 
-          path="/chatbot" 
+        />
+        <Route
+          path="/chatbot"
           element={
             <ProtectedRoute>
               <Chatbot />
             </ProtectedRoute>
-          } 
+          }
         />
 
         <Route
@@ -84,7 +90,6 @@ function App() {
             </ProtectedRoute>
           }
         />
-
 
         <Route
           path="/admin"

@@ -4,84 +4,43 @@ import api from "../utils/api";
 
 const AuthContext = createContext();
 
-function parseJwt(token) {
-  try {
-    const base64Url = token.split(".")[1];
-    if (!base64Url) return null;
-    const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
-    const jsonPayload = decodeURIComponent(
-      atob(base64)
-        .split("")
-        .map((c) => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2))
-        .join("")
-    );
-    return JSON.parse(jsonPayload);
-  } catch (e) {
-    return null;
-  }
-}
-
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // ✅ Check if user is logged in using cookies
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-      const decoded = parseJwt(token);
-      if (decoded) {
-        if (decoded.exp && decoded.exp * 1000 < Date.now()) {
-          // expired
-          localStorage.removeItem("token");
-          delete api.defaults.headers.common["Authorization"];
-          setUser(null);
+    const checkAuth = async () => {
+      try {
+        const res = await api.get("/api/auth/dashboard", { withCredentials: true });
+        if (res.data?.user) {
+          setUser(res.data.user);
         } else {
-          setUser({
-            id: decoded.id || decoded._id || null,
-            email: decoded.email || null,
-            name: decoded.name || null,
-            exp: decoded.exp || null,
-          });
+          setUser(null);
         }
-      } else {
-        localStorage.removeItem("token");
-        delete api.defaults.headers.common["Authorization"];
+      } catch (err) {
+        console.warn("Auth check failed:", err.message);
+        setUser(null);
+      } finally {
+        setLoading(false);
       }
-    }
-    setLoading(false);
+    };
+    checkAuth();
   }, []);
 
-  const login = (token) => {
-    localStorage.setItem("token", token);
-    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    const decoded = parseJwt(token);
-    if (decoded) {
-      setUser({
-        id: decoded.id || decoded._id || null,
-        email: decoded.email || null,
-        name: decoded.name || null,
-        exp: decoded.exp || null,
-      });
-    } else {
+  // ✅ Logout function
+  const logout = async () => {
+    try {
+      await api.get("/api/auth/logout", { withCredentials: true });
+    } catch (err) {
+      console.warn("Logout request failed:", err.message);
+    } finally {
       setUser(null);
     }
   };
 
-  const logout = async () => {
-    try {
-      // optional backend logout call
-      await api.post("/api/auth/logout");
-    } catch (e) {
-      console.warn("Logout request failed:", e.message);
-    }
-    localStorage.removeItem("token");
-    delete api.defaults.headers.common["Authorization"];
-    setUser(null);
-  };
-
   return (
-    <AuthContext.Provider value={{ user, login, logout, loading }}>
+    <AuthContext.Provider value={{ user, setUser, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );

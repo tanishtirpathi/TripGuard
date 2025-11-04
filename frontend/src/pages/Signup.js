@@ -6,6 +6,7 @@ import "./Login.css"; // reuse same styles for consistency
 
 const Signup = () => {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) =>
@@ -13,14 +14,21 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
-      await api.post("/api/auth/signup", form);
-      alert("Signup successful. Please login.");
-      navigate("/login");
+      const res = await api.post("/api/auth/signup", form);
+
+      if (res.status === 200 || res.status === 201) {
+        navigate("/verify-info");
+      } else {
+        alert(res.data?.message || "Signup failed");
+      }
     } catch (err) {
       const msg =
         err?.response?.data?.message || err.message || "Signup failed";
       alert(msg);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -60,8 +68,8 @@ const Signup = () => {
               required
             />
 
-            <button type="submit" className="login-btn">
-              Sign Up
+            <button type="submit" className="login-btn" disabled={loading}>
+              {loading ? "loading....." : "sign up "}
             </button>
           </form>
 
@@ -74,7 +82,7 @@ const Signup = () => {
       {/* Right Side (Illustration) */}
       <div className="login-right">
         <img
-        src="https://i.pinimg.com/736x/7f/1c/2d/7f1c2d7014ec2f2d4c27591b57472aff.jpg"
+          src="https://i.pinimg.com/736x/7f/1c/2d/7f1c2d7014ec2f2d4c27591b57472aff.jpg"
           alt="signup illustration"
         />
       </div>

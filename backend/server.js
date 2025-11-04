@@ -9,20 +9,10 @@ import newsRoutes from "./routes/news.routes.js";
 import chatbotRoute from "./routes/chatbot.router.js";
 import cookieParser from "cookie-parser";
 
-
 const app = express();
 app.use(cookieParser());
-// const allowed = ["http://localhost:3000", "https://tripguard.vercel.app"];
-// app.use(
-//   cors({
-//     origin: function (origin, callback) {
-//       if (!origin) return callback(null, true); // mobile apps / curl
-//       if (allowed.indexOf(origin) !== -1) return callback(null, true);
-//       callback(new Error("CORS not allowed"), false);
-//     },
-//     credentials: true,
-//   })
-// );
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+
 app.use(express.json());
 connectDB();
 app.use("/api/news", newsRoutes);
