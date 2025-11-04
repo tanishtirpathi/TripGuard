@@ -48,7 +48,7 @@ export const signup = async (req, res) => {
       newUser.emailVerificationToken
     );
 
-    const verificationUrl = `http://localhost:3000/verify/${unhashedToken}`;
+    const verificationUrl = `https://tripguard.vercel.app/verify/${unhashedToken}`;
     if (!verificationUrl) {
       throw new Apierror(400, "error in verificationUrl");
     }

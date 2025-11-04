@@ -11,7 +11,7 @@ import cookieParser from "cookie-parser";
 
 const app = express();
 app.use(cookieParser());
-app.use(cors({ origin: "https://tripguard.vercel.app/", credentials: true }));
+app.use(cors({ origin: "https://tripguard.vercel.app", credentials: true }));
 
 app.use(express.json());
 connectDB();
