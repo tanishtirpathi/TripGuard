@@ -4,7 +4,7 @@ const baseURL = "https://tripguard.onrender.com";
 
 const api = axios.create({
   baseURL,
-  withCredentials: true, // 🔥 Required for cookies
+  withCredentials: true, 
 });
 
 export default api;
