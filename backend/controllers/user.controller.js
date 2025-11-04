@@ -61,12 +61,16 @@ export const signup = async (req, res) => {
     console.log("step two is done ", mailContent);
 
     console.log("sending email to:", newUser.email);
-    await sendmail({
+    const sendingMail = await sendmail({
       email: newUser.email,
       subject: "Verify your Tasker account",
       mailGenContent: mailContent,
     });
+    if (!sendingMail) {
+      throw new Apierror(400, "mail could not send ");
+    }
     console.log("email sent successfully!");
+
     return res
       .status(200)
       .json(
@@ -95,7 +99,9 @@ export const loginUser = async (req, res) => {
   const validPassword = await bcrypt.compare(password, user.password);
   if (!validPassword) throw new Apierror(401, "Invalid credentials");
 
-  const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(user._id);
+  const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(
+    user._id
+  );
 
   // ✅ Set cookies
   res.cookie("accessToken", accessToken, {
@@ -124,7 +130,6 @@ export const loginUser = async (req, res) => {
   });
 };
 
-
 // ---------------------- LOGOUT ----------------------
 
 export const logoutUser = async (req, res) => {
@@ -151,7 +156,6 @@ export const logoutUser = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
-
 
 // ---------------------- VERIFY EMAIL ----------------------
 export const verify = async (req, res) => {
