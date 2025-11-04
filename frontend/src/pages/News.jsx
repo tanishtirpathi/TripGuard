@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./News.css";
 
 const News = () => {
@@ -10,13 +10,6 @@ const News = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // ✅ Check cache first
-    const cachedNews = localStorage.getItem("newsData");
-    if (cachedNews) {
-      setNews(JSON.parse(cachedNews));
-      setLoading(false);
-    }
-
     const fetchNews = async (lat, lon) => {
       try {
         setLoading(true);
