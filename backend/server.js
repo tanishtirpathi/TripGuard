@@ -17,7 +17,7 @@ app.use(cookieParser());
 // allow FRONTEND_URL in .env for flexible dev/prod
 const allowedOrigins = [
   process.env.FRONTEND_URL || "http://localhost:3000",
-  "https://trip-guard.vercel.app/",
+  "https://trip-guard.vercel.app",
   "http://localhost:5813",
 ];
 
