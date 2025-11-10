@@ -1,23 +1,22 @@
+// utils/APIerror.js
 class Apierror extends Error {
   constructor(
     statusCode,
-    message = "something went wrong",
+    message = "Something went wrong",
     errors = [],
     stack = ""
   ) {
-    super(message), (this.statusCode = statusCode);
-    this.data = null;
+    super(message);
+    this.statusCode = statusCode;
     this.message = message;
     this.success = false;
-    this.errors = errors;
-
-    if (this.statck) {
-      this.statck = stack;
+    this.errors = Array.isArray(errors) ? errors : [errors];
+    if (stack) {
+      this.stack = stack;
     } else {
       Error.captureStackTrace(this, this.constructor);
     }
   }
 }
 
-
-export {Apierror}
+export { Apierror };

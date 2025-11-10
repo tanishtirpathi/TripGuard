@@ -11,19 +11,24 @@ export const sendmail = async (options) => {
       link: "https://x.com/tanishtirpathi",
     },
   });
-  const emailText = mailGenerator.generatePlaintext(options.mailGenContent);
 
+
+
+  const emailText = mailGenerator.generatePlaintext(options.mailGenContent);
   const emailBody = mailGenerator.generate(options.mailGenContent);
+
+
 
   const transporter = nodemailer.createTransport({
     host: process.env.MAIL_TRAP_EMAIL_HOST,
-    port: process.env.MAIL_TRAP_EMAIL_PORT,
+    port: Number(process.env.MAIL_TRAP_EMAIL_PORT) || 2525,
     secure: false, // true for 465, false for other ports
     auth: {
       user: process.env.MAIL_TRAP_USER,
       pass: process.env.MAIL_TRAP_PASSWORD,
     },
   });
+
 
   const mail = {
     from: "Trip-guard <test@mailtrap.io>",
@@ -32,23 +37,34 @@ export const sendmail = async (options) => {
     text: emailText,
     html: emailBody,
   };
+
+
+
+
+
   try {
     const info = await transporter.sendMail(mail);
     console.log("Mail sent: ", info);
-    console.log("mail send ho gya bsdk ");
+    return info; // important: return result so caller can check
   } catch (error) {
-    console.error(`email faild ho gya hai bevkoof  ${error}`);
+    console.error(`Email failed: ${error}`);
+    // rethrow so caller can handle
+    throw error;
   }
 };
+
+
+
 export const EmailVerificationMailGenContent = (name, veriificationUrl) => {
   return {
     body: {
-      name: name,
+      name,
       intro: "Welcome to Trip guard ! We're very excited to have you on board.",
       action: {
-        instructions: "To get started with trip guard for safty travling  , please click here:",
+        instructions:
+          "To get started with trip guard for safety traveling, please click here:",
         button: {
-          color: "rgba(217, 31, 31, 1)", // Optional action button color
+          color: "#D91F1F",
           text: "Confirm your account",
           link: veriificationUrl,
         },
@@ -58,16 +74,17 @@ export const EmailVerificationMailGenContent = (name, veriificationUrl) => {
     },
   };
 };
-export const PasswordResetMailGenContent = (name , PasswordResetUrl) => {
+
+export const PasswordResetMailGenContent = (name, PasswordResetUrl) => {
   return {
     body: {
-      name: name,
-      intro: "change your password from here .",
+      name,
+      intro: "Change your password from here.",
       action: {
-        instructions: "Password change kar le bsdk yaha se ",
+        instructions: "Click to reset your password",
         button: {
-          color: "rgba(255, 17, 17, 1)", // Optional action button color
-          text: " yaha ungli kar password change karne ke liye ",
+          color: "#FF1111",
+          text: "Reset password",
           link: PasswordResetUrl,
         },
       },
