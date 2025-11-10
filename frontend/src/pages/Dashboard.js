@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import api from "../utils/api";
 import MapComponent from "../components/MapComponent";
 import "./dashboard.css";
 import { useAuth } from "../context/AuthContext";
-import { useTranslation } from "react-i18next"; // ✅ Translation import
+import { useTranslation } from "react-i18next";
 
 const Dashboard = () => {
   const [incidents, setIncidents] = useState([]);
@@ -34,18 +34,36 @@ const Dashboard = () => {
         {/* Sidebar */}
         <aside className="sidebar">
           <h2 className="logo">{t("SafetyApp")}</h2>
-          <ul className="menu">
-            <li className="active">{t("dashboard")}</li>
-            <li onClick={() => navigate("/report")}>{t("Report Incident")}</li>
-            <li onClick={() => navigate("/news")}>{t("Live News")}</li>
-            <li onClick={() => navigate("/full-map")}>{t("Map")}</li>
-            <li onClick={() => navigate("/sos")}>{t("Emergency Contacts")}</li>
-            <li onClick={() => navigate("/chatbot")}>{t("AI Assistant")}</li>
-            <li onClick={() => navigate("/instructions")}>
-              {t("Instructions")}
-            </li>
-            <li onClick={() => navigate("/logout")}>{t("Logout")}</li>
-          </ul>
+          <nav aria-label="Dashboard Navigation">
+            <ul className="menu">
+              <li>
+                <Link to="/dashboard" className="active">
+                  {t("dashboard")}
+                </Link>
+              </li>
+              <li>
+                <Link to="/report">{t("Report Incident")}</Link>
+              </li>
+              <li>
+                <Link to="/news">{t("Live News")}</Link>
+              </li>
+              <li>
+                <Link to="/full-map">{t("Map")}</Link>
+              </li>
+              <li>
+                <Link to="/sos">{t("Emergency Contacts")}</Link>
+              </li>
+              <li>
+                <Link to="/chatbot">{t("AI Assistant")}</Link>
+              </li>
+              <li>
+                <Link to="/instructions">{t("Instructions")}</Link>
+              </li>
+              <li>
+                <Link to="/logout">{t("Logout")}</Link>
+              </li>
+            </ul>
+          </nav>
         </aside>
 
         {/* Main Content */}
@@ -249,6 +267,7 @@ const Dashboard = () => {
       </div>
 
       {/* Footer */}
+      {/* Footer */}
       <footer className="footer">
         <div className="footer-container">
           <div className="footer-brand">
@@ -259,40 +278,55 @@ const Dashboard = () => {
               )}
             </p>
           </div>
+
           <div className="footer-links">
             <h3>{t("Quick Links")}</h3>
             <ul>
               <li>
-                <a href="#">{t("Home")}</a>
+                <Link to="/">{t("Home")}</Link>
               </li>
               <li>
-                <a href="#">{t("Report Incident")}</a>
+                <Link to="/report">{t("Report Incident")}</Link>
               </li>
               <li>
-                <a href="#">{t("Safety Alerts")}</a>
+                <Link to="/news">{t("Safety Alerts")}</Link>
               </li>
               <li>
-                <a href="#">{t("Contact Us")}</a>
+                <Link to="/contact">{t("Contact Us")}</Link>
               </li>
             </ul>
           </div>
+
           <div className="footer-contact">
             <h3>{t("Contact")}</h3>
             <p>Email: support@safeguard.com</p>
             <p>Phone: +91 98765 43210</p>
             <div className="social-icons">
-              <a href="#">
+              <button
+                onClick={() => window.open("https://facebook.com", "_blank")}
+                className="icon-btn"
+                aria-label="Facebook"
+              >
                 <i className="fab fa-facebook"></i>
-              </a>
-              <a href="#">
+              </button>
+              <button
+                onClick={() => window.open("https://twitter.com", "_blank")}
+                className="icon-btn"
+                aria-label="Twitter"
+              >
                 <i className="fab fa-twitter"></i>
-              </a>
-              <a href="#">
+              </button>
+              <button
+                onClick={() => window.open("https://linkedin.com", "_blank")}
+                className="icon-btn"
+                aria-label="LinkedIn"
+              >
                 <i className="fab fa-linkedin"></i>
-              </a>
+              </button>
             </div>
           </div>
         </div>
+
         <div className="footer-bottom">
           <p>
             © 2025 {t("SafeGuard")}. {t("All Rights Reserved.")}
