@@ -42,7 +42,7 @@ function ChatbotWithSidebar({ t }) {
     <div style={{ display: "flex", height: "100vh" }}>
       {/* Sidebar */}
       <aside className="sidebar">
-  <h2 className="logo">Safion</h2>
+  <h2 className="logo">safty app </h2>
   <ul className="menu">
             <li onClick={() => navigate("/dashboard")}>{("dashboard")}</li>
             <li onClick={() => navigate("/report")}>{("Report Incident")}</li>

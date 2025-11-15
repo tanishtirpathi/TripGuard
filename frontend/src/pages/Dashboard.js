@@ -28,41 +28,23 @@ const Dashboard = () => {
     fetchIncidents();
   }, []);
 
-  return (
+  return (  
     <div>
       <div className="dashboard-container">
         {/* Sidebar */}
         <aside className="sidebar">
           <h2 className="logo">{t("SafetyApp")}</h2>
           <nav aria-label="Dashboard Navigation">
-            <ul className="menu">
-              <li>
-                <Link to="/dashboard" className="active">
-                  {t("dashboard")}
-                </Link>
-              </li>
-              <li>
-                <Link to="/report">{t("Report Incident")}</Link>
-              </li>
-              <li>
-                <Link to="/news">{t("Live News")}</Link>
-              </li>
-              <li>
-                <Link to="/full-map">{t("Map")}</Link>
-              </li>
-              <li>
-                <Link to="/sos">{t("Emergency Contacts")}</Link>
-              </li>
-              <li>
-                <Link to="/chatbot">{t("AI Assistant")}</Link>
-              </li>
-              <li>
-                <Link to="/instructions">{t("Instructions")}</Link>
-              </li>
-              <li>
-                <Link to="/logout">{t("Logout")}</Link>
-              </li>
-            </ul>
+             <ul className="menu">
+            <li onClick={() => navigate("/dashboard")}>{("dashboard")}</li>
+            <li onClick={() => navigate("/report")}>{("Report Incident")}</li>
+            <li onClick={() => navigate("/news")}>{("Live News")}</li>
+            <li onClick={() => navigate("/full-map")}>{("Map")}</li>
+            <li onClick={() => navigate("/sos")}>{("Emergency Contacts")}</li>
+            <li className="active" onClick={() => navigate("/chatbot")}>{("AI Assistant")}</li>
+            <li onClick={() => navigate("/instructions")}>{("Instructions")}</li>
+            <li onClick={() => navigate("/login")}>{("Logout")}</li>
+          </ul>
           </nav>
         </aside>
 
