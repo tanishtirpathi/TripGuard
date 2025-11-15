@@ -46,7 +46,7 @@ export const signup = async (req, res) => {
     await newUser.save();
     console.log("✅ Saved user with verification token:", newUser.emailVerificationToken);
 
-    const verificationUrl = `https://tripguard.vercel.app/verify/${unhashedToken}`;
+    const verificationUrl = `https://trip-guard.vercel.app/verify/${unhashedToken}`;
     const mailContent = EmailVerificationMailGenContent(name, verificationUrl);
 
     console.log("sending email to:", newUser.email);
