@@ -36,12 +36,12 @@ const Dashboard = () => {
           <h2 className="logo">{t("SafetyApp")}</h2>
           <nav aria-label="Dashboard Navigation">
              <ul className="menu">
-            <li onClick={() => navigate("/dashboard")}>{("dashboard")}</li>
+            <li  className="active" onClick={() => navigate("/dashboard")}>{("dashboard")}</li>
             <li onClick={() => navigate("/report")}>{("Report Incident")}</li>
             <li onClick={() => navigate("/news")}>{("Live News")}</li>
             <li onClick={() => navigate("/full-map")}>{("Map")}</li>
             <li onClick={() => navigate("/sos")}>{("Emergency Contacts")}</li>
-            <li className="active" onClick={() => navigate("/chatbot")}>{("AI Assistant")}</li>
+            <li onClick={() => navigate("/chatbot")}>{("AI Assistant")}</li>
             <li onClick={() => navigate("/instructions")}>{("Instructions")}</li>
             <li onClick={() => navigate("/login")}>{("Logout")}</li>
           </ul>
@@ -195,15 +195,15 @@ const Dashboard = () => {
 
               <div className="stats-container">
                 <div className="stat-box">
-                  <h3>120,482</h3>
+                  <h3>120</h3>
                   <span>{t("ACTIVE USERS")}</span>
                 </div>
                 <div className="stat-box">
-                  <h3>58,930</h3>
+                  <h3>12</h3>
                   <span>{t("REPORTS SUBMITTED")}</span>
                 </div>
                 <div className="stat-box">
-                  <h3>44,715</h3>
+                  <h3>9</h3>
                   <span>{t("ALERTS RESOLVED")}</span>
                 </div>
               </div>
@@ -219,7 +219,7 @@ const Dashboard = () => {
                     )}
                   </p>
                   <h4>
-                    Alex Johnson <span>- {t("Commuter")}</span>
+                    Riya sharma <span>- {t("student")}</span>
                   </h4>
                 </div>
                 <div className="card">
@@ -239,7 +239,7 @@ const Dashboard = () => {
                     )}
                   </p>
                   <h4>
-                    Marcus Lee <span>- {t("Resident")}</span>
+                    Raman manjotra <span>- {t("Resident")}</span>
                   </h4>
                 </div>
               </div>
