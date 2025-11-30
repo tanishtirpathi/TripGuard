@@ -19,7 +19,7 @@ const Signup = () => {
       const res = await api.post("/api/auth/signup", form);
 
       if (res.status === 200 || res.status === 201) {
-        navigate("/verify-info");
+        navigate("/dashboard");
       } else {
         alert(res.data?.message || "Signup failed");
       }
