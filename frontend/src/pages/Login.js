@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import api from "../utils/api";
 import { useAuth } from "../context/AuthContext";
 import "./Login.css";
+import GoogleLoginButton from "../components/GoogleLoginButton";
 
 const Login = () => {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -19,7 +20,9 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const res = await api.post("/api/auth/login", form, { withCredentials: true });
+      const res = await api.post("/api/auth/login", form, {
+        withCredentials: true,
+      });
 
       if (res.status === 200 && res.data?.user) {
         // ✅ Cookies are automatically stored; just update context
@@ -82,7 +85,7 @@ const Login = () => {
               {loading ? "Loading..." : "Login"}
             </button>
           </form>
-
+          <GoogleLoginButton />
           <p className="signup-text">
             Don’t have an account? <Link to="/signup">Sign Up</Link>
           </p>

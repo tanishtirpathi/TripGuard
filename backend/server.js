@@ -9,32 +9,38 @@ import newsRoutes from "./routes/news.routes.js";
 import chatbotRoute from "./routes/chatbot.router.js";
 import cookieParser from "cookie-parser";
 
-
 const app = express();
 
 app.use(cookieParser());
 
-// allow FRONTEND_URL in .env for flexible dev/prod
-const allowedOrigins = [
-  process.env.FRONTEND_URL || "http://localhost:3000",
-  "https://trip-guard.vercel.app",
-  "http://localhost:5813",
-];
-
 app.use(
   cors({
-    origin: (origin, callback) => {
-      // allow requests with no origin like mobile apps or curl
-      if (!origin) return callback(null, true);
-      if (allowedOrigins.indexOf(origin) !== -1) {
-        return callback(null, true);
-      } else {
-        return callback(new Error("CORS policy: origin not allowed"), false);
-      }
-    },
+    origin: true,
     credentials: true,
   })
 );
+
+// const allowedOrigins = [
+//   process.env.FRONTEND_URL || "http://localhost:3000",
+//   "https://trip-guard.vercel.app",
+//   "http://localhost:5813",
+
+// ];
+
+// app.use(
+//   cors({
+//     origin: (origin, callback) => {
+//       // allow requests with no origin like mobile apps or curl
+//       if (!origin) return callback(null, true);
+//       if (allowedOrigins.indexOf(origin) !== -1) {
+//         return callback(null, true);
+//       } else {
+//         return callback(new Error("CORS policy: origin not allowed"), false);
+//       }
+//     },
+//     credentials: true,
+//   })
+// );
 
 app.use(express.json());
 connectDB();

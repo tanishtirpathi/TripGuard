@@ -1,20 +1,27 @@
 import jwt from "jsonwebtoken";
+import User from "../models/User.js";
 
-const authMiddleware = (req, res, next) => {
+const authMiddleware = async (req, res, next) => {
   try {
-    console.log("Cookies received:", req.cookies);
     const token = req.cookies?.accessToken;
 
     if (!token) {
-      return res.status(401).json({ message: "No token found in cookies, authorization denied" });
+      return res.status(401).json({ message: "Not authorized" });
     }
 
     const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-    req.user = decoded;
+
+    const user = await User.findById(decoded.id).select("-password");
+
+    if (!user) {
+      return res.status(401).json({ message: "User not found" });
+    }
+
+    req.user = user; // ✅ FULL USER OBJECT
     next();
   } catch (err) {
-    console.error("Auth middleware error:", err.message);
-    return res.status(401).json({ message: "Invalid or expired token" });
+    console.error("Auth error:", err.message);
+    return res.status(401).json({ message: "Invalid token" });
   }
 };
 

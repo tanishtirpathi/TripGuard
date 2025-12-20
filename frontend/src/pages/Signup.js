@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../utils/api";
 import "./Login.css"; // reuse same styles for consistency
+import GoogleLoginButton from "../components/GoogleLoginButton";
 
 const Signup = () => {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
@@ -72,6 +73,9 @@ const Signup = () => {
               {loading ? "loading....." : "sign up "}
             </button>
           </form>
+          <div style={{ marginTop: "20px", textAlign: "center" }}>
+            <GoogleLoginButton />
+          </div>
 
           <p className="signup-text">
             Already have an account? <Link to="/login">Login</Link>

@@ -11,11 +11,11 @@ import Dashboard from "./pages/Dashboard";
 import ReportIncident from "./pages/ReportIncident";
 import SOS from "./pages/SOS";
 import AdminPanel from "./pages/AdminPanel";
-import FullMap from "./pages/FullMap"; // <- import the new full map page
+import FullMap from "./pages/FullMap";
 import ProtectedRoute from "./components/ProtectedRoute";
 import News from "./pages/News";
 import Instructions from "./pages/instructions";
-import Chatbot from "./pages/chatbot"; // ✅ yaha sahi import
+import Chatbot from "./pages/chatbot"; 
 import Verify from "./pages/Verify";
 function App() {
   return (
